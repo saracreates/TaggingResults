@@ -4,7 +4,9 @@ The work is published on the [CERN Document Server](https://repository.cern/reco
 
 This repo hosts the plotting for evaluating jet flavor tagging at FCC-ee.
 
-<img src="./plots-for-FCC-note/discrim-non-bi_FastSim240CLD_vs_IDEA.pdf" alt="FastSim_CLD-vs-IDEA_tagging-performance" width="70%">
+<img src="./saved_plots/readme_image.png" alt="FastSim_CLD-vs-IDEA_tagging-performance" width="70%">
+
+:eyes: Sneak peak: ROC curves comparing CLD and IDEA fast simulation tagging performance. What do we learn? PID information from IDEA is crucial for $s$-tagging. The closer the curves to the lower right corner, the better the performance. 
 
 ## Overview of this repository
 
