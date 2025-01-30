@@ -14,9 +14,9 @@ This repo hosts the plotting for evaluating jet flavor tagging at FCC-ee.
 - The comparison of jet constituent observables in fast vs. full simulation or $H\rightarrow x \bar{x}$ is in `jet-const-observables_comparison`. 
 - The results of the tagging performances are in `roc_curves`.
 - The problem of track-cluster matching in pandora is discussed in `check_track-cluster-matching`.
+- `track-params-check` compares the helix track parameters in full and fast simulation. 
 - We save plots in `saved_plots`.
-- `plots_from-key4hep` shows you that the key4hep implementation of the tagger works. 
-- The notebook `trackparams_comparison.ipynb` compares the helix track parameters in full and fast simulation.  
+- `plots_from-key4hep` shows you that the key4hep implementation of the tagger works.  
 
 
 ## Citation
