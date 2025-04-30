@@ -234,5 +234,3 @@ def plot_cov_matrix(df1, df2, index1, index2, l1='df1', l2='df2', bins=50):
     plt.show()
 
 # plot PV
-
-def plot_PV(df1, df2, index1, index2, l1='df1', l2='df2', bins=50):
