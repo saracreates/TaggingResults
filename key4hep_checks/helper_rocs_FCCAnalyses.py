@@ -267,16 +267,61 @@ def log_multiline_rocs_g(y_true, y_score, labels, ax, k, j, ls="solid", l=True):
     else:
         print("failed")
 
+import numpy as np
+
+def unfold_scores_and_labels(y_score, y_true):
+    """
+    Unfolds scores and labels while skipping invalid (empty) score entries.
+
+    Args:
+        y_score: shape (7, N), each element is an array of shape (2,) or possibly (0,)
+        y_true: shape (7, N), matching true labels
+
+    Returns:
+        unfolded_scores: shape (7, M) where M <= 2*N
+        unfolded_labels: shape (7, M) matching labels
+    """
+    unfolded_scores = []
+    unfolded_labels = []
+
+    for i in range(y_score.shape[0]):  # loop over classes (7)
+        valid_scores = []
+        valid_labels = []
+
+        for j in range(y_score.shape[1]):
+            s = y_score[i, j]
+            if np.shape(s) == (2,):
+                valid_scores.append(s)
+                valid_labels.extend([y_true[i, j]] * 2)  # duplicate label for 2 scores
+
+        if not valid_scores:
+            print(f"[WARNING] No valid scores for class {i}")
+            unfolded_scores.append(np.array([]))
+            unfolded_labels.append(np.array([]))
+        else:
+            stacked = np.stack(valid_scores)  # shape (M, 2)
+            unfolded_scores.append(stacked.flatten())  # shape (2*M,)
+            unfolded_labels.append(np.array(valid_labels))  # shape (2*M,)
+
+    return np.stack(unfolded_scores), np.stack(unfolded_labels)
+
+
 def get_y_true_and_score(data):
     labels = ['U', 'D', 'C', 'S', 'B', 'G', 'TAU']
     y_true = np.array([data[f'recojet_is{label}'] for label in labels])
-    y_true = np.argmax(y_true.T, axis=1)
     y_score = np.array([data[f'score_recojet_is{label}'] for label in labels])
+
+    # unfold scores and labels - if multiple jets per event (ATTENTION: this function works for N=2 jets per event)
+    if y_score[0, 0].shape == (2,):
+        y_score, y_true = unfold_scores_and_labels(y_score, y_true)
+
+    y_true = np.argmax(y_true.T, axis=1)
+
     #print(y_score.shape)
-    ind_nan = invalid_ind(data)
-    #print(ind_nan.shape)
-    y_score = np.delete(y_score, ind_nan, axis=1)
-    y_true = np.delete(y_true, ind_nan)
+    # ind_nan = invalid_ind(data)
+    # print(ind_nan.shape)
+    # y_score = np.delete(y_score, ind_nan, axis=1)
+    # y_true = np.delete(y_true, ind_nan)
     return y_true, y_score.T
 
 def all_rocs(data1, data2, label1, label2, save=False, name=None, bbox_anc=(0.6, 1.0)):

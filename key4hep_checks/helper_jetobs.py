@@ -18,7 +18,7 @@ matplotlib.rcParams.update(
 
 # helpers
 
-def plot_kinematics(df1, df2, figsize=(12, 7), bins=50, l1='df1', l2='df2'):
+def plot_kinematics(df1, df2, figsize=(12, 7), bins=50, l1='df1', l2='df2', save=False):
 
     keys = ['pfcand_erel_log', 'pfcand_thetarel', 'pfcand_phirel', 'pfcand_e', 'pfcand_p']
 
@@ -38,9 +38,11 @@ def plot_kinematics(df1, df2, figsize=(12, 7), bins=50, l1='df1', l2='df2'):
         ax.legend()
 
     plt.tight_layout()
+    if save:
+        plt.savefig('plots/kinematics_comparison.pdf')
     plt.show()
 
-def plot_pidflags(df1, df2, figsize=(12, 7), bins=10, l1='df1', l2='df2'):
+def plot_pidflags(df1, df2, figsize=(12, 7), bins=10, l1='df1', l2='df2', save=False):
     keys = ['pfcand_type', 'pfcand_charge', 'pfcand_isEl', 'pfcand_isMu', 'pfcand_isGamma', 'pfcand_isChargedHad', 'pfcand_isNeutralHad']
 
     fig, axs = plt.subplots(2, 4, figsize=figsize)
@@ -56,6 +58,8 @@ def plot_pidflags(df1, df2, figsize=(12, 7), bins=10, l1='df1', l2='df2'):
         ax.grid(True)
 
     plt.tight_layout()
+    if save:
+        plt.savefig('plots/pidflags_comparison.pdf')
     plt.show()
 
 # retreive charged particles
@@ -112,7 +116,7 @@ def get_chad_elements(df_value, index):
 
 # plots for charged particles 
 
-def plot_IP(df1, df2, index1, index2, l1='df1', l2='df2', bins=70):
+def plot_IP(df1, df2, index1, index2, l1='df1', l2='df2', bins=70, save=False):
     keys = ['pfcand_d0', 'pfcand_z0', 'pfcand_Sip2dVal', 'pfcand_Sip2dSig', 'pfcand_Sip3dVal', 'pfcand_Sip3dSig', 'pfcand_JetDistVal', 'pfcand_JetDistSig']
     r = {'pfcand_d0': [-1, 1],
         'pfcand_z0': [-1, 1],
@@ -157,10 +161,13 @@ def plot_IP(df1, df2, index1, index2, l1='df1', l2='df2', bins=70):
         ax.grid()
         ax.set_xlabel(key)
         ax.set_yscale('log')
+
+    if save:
+        plt.savefig('plots/IP_comparison.pdf')
     
     plt.show()
 
-def plot_cov_matrix(df1, df2, index1, index2, l1='df1', l2='df2', bins=50):
+def plot_cov_matrix(df1, df2, index1, index2, l1='df1', l2='df2', bins=50, save=False):
     keys = [
         'pfcand_cov_d0d0',
         'pfcand_cov_phid0',
@@ -231,6 +238,8 @@ def plot_cov_matrix(df1, df2, index1, index2, l1='df1', l2='df2', bins=50):
             ax[i].set_xlabel(xlabels[key])
             ax[i].legend()
             ax[i].grid(True)
+    if save:
+        plt.savefig('plots/cov_matrix_comparison.pdf')
     plt.show()
 
 # plot PV
