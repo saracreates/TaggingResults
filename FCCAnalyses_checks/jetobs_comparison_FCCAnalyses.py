@@ -9,7 +9,8 @@ save_status = True  # Set to False if you do not want to save the plots
 # change the paths here to use your own files 
 
 path_1 = "/afs/cern.ch/work/s/saaumill/public/MyFCCAnalyses/outputs/treemaker/fullsimtagger_jetbased/Hbb.root"
-path_2 = "/eos/experiment/fcc/ee/datasets/CLD_fullsim_tagging_from_key4hep/CLD_v5/Hbb_0.root" #Hxx_0.root # full sim from key4hep
+# path_2 = "/eos/experiment/fcc/ee/datasets/CLD_fullsim_tagging_from_key4hep/CLD_v5/Hbb_0.root" #Hxx_0.root # full sim from key4hep
+path_2 = "/afs/cern.ch/work/s/saaumill/public/MyFCCAnalyses/outputs/treemaker/fullsimtagger_jetbased/Hbb_from_key4hep.root"
 
 print("Loading data for jet observables comparison...")
 
@@ -20,8 +21,8 @@ file_2 = uproot.open(path_2)
 tree_2 = file_2["JetConstituentObservables;1"]
 
 # adapt the size of the data you want to load here
-df_1 = tree_1.arrays(library="np", entry_start=0, entry_stop=3000) 
-df_2 = tree_2.arrays(library="np", entry_start=0, entry_stop=3000)
+df_1 = tree_1.arrays(library="np", entry_start=0, entry_stop=2000) 
+df_2 = tree_2.arrays(library="np", entry_start=0, entry_stop=2000)
 
 key_map = { 
     "pfcand_erel_log": "pfcand_erel_log",
